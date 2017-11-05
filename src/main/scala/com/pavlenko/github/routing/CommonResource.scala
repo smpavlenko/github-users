@@ -8,9 +8,15 @@ import akka.http.scaladsl.server.{ Directives, Route }
 
 import com.pavlenko.github.serializers.JsonSupport
 
-trait MyResource extends Directives with JsonSupport {
+/**
+ * @author sergii.pavlenko
+ * @since Nov 5, 2017
+ */
+trait CommonResource extends Directives with JsonSupport {
 
   implicit def executionContext: ExecutionContext
+
+  def complete(resource: Future[Unit]): Route = onSuccess(resource) { complete(204, None) }
 
   def completeWithLocationHeader[T](resourceId: Future[Option[T]], ifDefinedStatus: Int, ifEmptyStatus: Int): Route =
     onSuccess(resourceId) {
@@ -32,7 +38,5 @@ trait MyResource extends Directives with JsonSupport {
       case Some(t) => complete(ToResponseMarshallable(t))
       case None    => complete(404, None)
     }
-
-  def complete(resource: Future[Unit]): Route = onSuccess(resource) { complete(204, None) }
 
 }

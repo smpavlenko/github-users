@@ -4,3 +4,7 @@ target/*
 project/target/*
 
 project/project/target/*
+
+.idea/*
+
+src/main/main.iml

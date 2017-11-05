@@ -10,6 +10,6 @@ import scala.concurrent.{Future, ExecutionContext}
 class UserService(implicit val executionContext: ExecutionContext) {
 
   def getUser(id: String): Future[Option[User]] = Future {
-    Some(User("11", "username"))
+    Some(User(id, "username"))
   }
 }
