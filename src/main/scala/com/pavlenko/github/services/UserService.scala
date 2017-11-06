@@ -13,8 +13,8 @@ import scala.io.Source
  */
 class UserService(implicit val executionContext: ExecutionContext) {
   def getUser(id: String): Future[List[User]] = Future {
-    val url = "https://api.github.com/search/users?q=language:"
-    val result = Source.fromURL(url + id).mkString
+    val url = s"https://api.github.com/search/users?q=language:$id"
+    val result = Source.fromURL(url).mkString
     val parsed = Json.parse(result)
     val peoples = (parsed \ "items").validate[List[User]].get
     peoples
