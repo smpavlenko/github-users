@@ -1,5 +1,5 @@
 # Github Users Service
-Simple REST service written on Scala for getting github users using github-api(https://developer.github.com/v3/)
+Simple REST service written on Scala for retrieving github users using github-api(https://developer.github.com/v3/)
 
 ## How to run the service
 Clone the repository:
