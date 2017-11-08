@@ -1,4 +1,7 @@
 # Github Users Service
+
+[![Build Status](https://travis-ci.org/smpavlenko/github-users.svg?branch=master)](https://travis-ci.org/smpavlenko/github-users)
+
 Simple REST service written on Scala for retrieving github users using github-api(https://developer.github.com/v3/)
 
 ## How to run the service
