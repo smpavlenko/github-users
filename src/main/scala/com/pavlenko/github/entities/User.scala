@@ -8,12 +8,14 @@ import play.api.libs.functional.syntax._
  * @author sergii.pavlenko
  * @since Nov 5, 2017
  */
-case class User(username: String, avatarUrl: String) {
+case class User(username: String, name: Option[String], avatarUrl: Option[String], followersNumber: Option[Long]) {
 }
 
 object User {
   implicit val userReads: Reads[User] = (
       (JsPath \ "login").read[String] and
-      (JsPath \ "avatar_url").read[String]
+      (JsPath \ "name").readNullable[String] and
+      (JsPath \ "avatar_url").readNullable[String] and
+      (JsPath \ "followers").readNullable[Long]
     )(User.apply _)
 }
