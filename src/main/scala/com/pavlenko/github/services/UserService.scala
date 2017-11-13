@@ -20,7 +20,11 @@ class UserService(implicit val executionContext: ExecutionContext) {
     ).tupled
 
   def getUser(id: String, page: Option[String], perPage: Option[String]): Future[List[User]] = Future {
-    val json = Try(Source.fromURL(s"https://api.github.com/search/users?q=language:$id&per_page=5").mkString)
+    val pageParam = page.getOrElse("1")
+    val perPageParam = perPage.getOrElse("5")
+
+    val json = Try(Source.fromURL(s"https://api.github" +
+      s".com/search/users?q=language:$id&page=&$pageParam&per_page=$perPageParam").mkString)
     json match {
       case Success(users) =>
         val parsedUsers = Json.parse(users)
