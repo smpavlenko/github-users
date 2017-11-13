@@ -15,7 +15,9 @@ trait UserResource extends CommonResource {
   def userRoutes: Route = pathPrefix("users") {
     path(Segment) { language =>
       get {
-        complete(userService.getUser(language))
+        parameters('page.as[String] ?, 'perPage.as[String] ?) { (page, perPage) =>
+          complete(userService.getUser(language, page, perPage))
+        }
       }
     }
 

@@ -19,7 +19,7 @@ class UserService(implicit val executionContext: ExecutionContext) {
       (__ \ "avatar_url").read[String]
     ).tupled
 
-  def getUser(id: String): Future[List[User]] = Future {
+  def getUser(id: String, page: Option[String], perPage: Option[String]): Future[List[User]] = Future {
     val json = Try(Source.fromURL(s"https://api.github.com/search/users?q=language:$id&per_page=5").mkString)
     json match {
       case Success(users) =>
