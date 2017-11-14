@@ -27,7 +27,7 @@ By default the service runs on port 5000
 Get list of users:
 from console
 ```
-curl -v http://localhost:5000/users/{language}
+> curl -v http://localhost:5000/users/{language}
 ```
 or from simply browser
 ```
@@ -35,8 +35,10 @@ http://localhost:5000/users/{language}
 ```
 where {language} is programming language, e.g.:
 ```
-curl -v http://localhost:5000/users/scala
+> curl -v http://localhost:5000/users/scala
 ```
+
+
 
 ## Technologies
 
