@@ -28,27 +28,30 @@ class UserService(implicit val executionContext: ExecutionContext) {
     json match {
       case Success(users) =>
         val parsedUsers = Json.parse(users)
-        val people = (parsedUsers \ "items").as[List[(String, String)]]
-        val res = people
-          .map(_._1)
-          .map(login => getUserDetails(login))
+        val people = (parsedUsers \ "items").as[List[User]]
+
+        val users1 = people
+          .map(_.username)
+          .flatMap(getUserDetails(_))
           .map(Json.parse(_))
           .map(_.validate[User])
           .map(_.get)
 
-        res
+        val logins = users1.map(_.username)
+
+        users1 ::: people.filter(!logins.contains(_))
       case Failure(e) =>
         List()
     }
   }
 
-  private def getUserDetails(login: String): String = {
+  private def getUserDetails(login: String): Option[String] = {
     val json = Try(Source.fromURL(s"https://api.github.com/users/$login").mkString)
     json match {
       case Success(user) =>
-        user
+        Some(user)
       case Failure(e) =>
-        ""
+        None
     }
   }
 }
