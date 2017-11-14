@@ -38,7 +38,12 @@ where {language} is programming language, e.g.:
 > curl -v http://localhost:5000/users/scala
 ```
 
-
+__Params:__
+- page - page number
+- perPage - count of users per page 
+```
+localhost:5000/users/java?page=15&perPage=10
+```
 
 ## Technologies
 
