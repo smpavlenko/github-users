@@ -32,7 +32,6 @@ class UserService(implicit val executionContext: ExecutionContext) {
         val res = people
           .map(_._1)
           .map(login => getUserDetails(login))
-          .map(_.mkString)
           .map(Json.parse(_))
           .map(_.validate[User])
           .map(_.get)
@@ -44,10 +43,10 @@ class UserService(implicit val executionContext: ExecutionContext) {
   }
 
   private def getUserDetails(login: String): String = {
-    val json = Try(Source.fromURL(s"https://api.github.com/users/$login"))
+    val json = Try(Source.fromURL(s"https://api.github.com/users/$login").mkString)
     json match {
       case Success(user) =>
-        user.mkString
+        user
       case Failure(e) =>
         ""
     }
